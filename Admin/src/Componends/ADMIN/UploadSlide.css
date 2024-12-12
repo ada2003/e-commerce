@@ -1,0 +1,91 @@
+.upload-slide-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    /* By default, this will not center the container */
+ 
+
+  }
+  
+  .upload-slide-heading {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .upload-form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    max-width: 100%; /* Ensure it's full width and doesn't center */
+  }
+  
+  .upload-form .form-group {
+    display: block; /* Align items vertically, not centered */
+    gap: 15px;
+  }
+  
+  .upload-form input[type="file"] {
+    width: 100%; /* Make it full width */
+  }
+  
+  .upload-btn {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+  }
+  
+  .uploaded-images-section {
+    margin-top: 40px;
+  }
+  
+  .uploaded-images-section h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  table {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    padding: 12px 15px;
+    text-align: left; /* Align the table data to the left */
+  }
+  
+  .thumbnail-img {
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .slides-table-container {
+    margin-top: 20px;
+  }
+  
+  .slides-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .slides-table th, .slides-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .slides-table th {
+    background-color: #d30e0e;
+  }
+  
+  .slides-table img {
+    max-width: 100px; /* or any other size you prefer */
+    height: auto;
+  }
+  

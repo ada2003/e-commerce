@@ -1,0 +1,295 @@
+/* ProductSection.css */
+.products-section {
+    padding: 4rem 2rem;
+    background-color: #fff;
+  }
+  
+  .section-title {
+    text-align: center;
+    color: #f97316;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInDown 0.8s ease forwards;
+  }
+  
+  .section-title h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .section-title p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+  
+  .categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+  }
+  
+  .category-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #f97316;
+    border-radius: 25px;
+    background: transparent;
+    color: #f97316;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .category-btn:hover {
+    background: #1665f9;
+    color: white;
+  }
+  
+  .category-btn.active {
+    background: #f97316;
+    color: white;
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .product-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 50px 30px rgba(1, 65, 139, 0.15);
+  }
+  
+  .product-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-card:hover .product-image img {
+    transform: scale(1.1);
+  }
+  
+  .product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #1680f9;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  
+  .product-info {
+    padding: 1.5rem;
+  }
+  
+  .product-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-description {
+    color: #666;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f97316;
+    margin-bottom: 1rem;
+  }
+  
+  .add-to-cart {
+    width: 100%;
+    padding: 0.75rem;
+    background: #f97316;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .add-to-cart:hover {
+    background: #0c74ea;
+    transform: translateY(-2px);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .products-section {
+      padding: 2rem 1rem;
+    }
+  
+    .section-title h2 {
+      font-size: 2rem;
+    }
+  
+    .categories {
+      gap: 0.5rem;
+    }
+  
+    .category-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  
+    .products-grid {
+      gap: 1rem;
+    }
+  }
+  /* Add these new styles to your existing ProductSection.css */
+
+.size-badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .size-badge {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #f0f0f0;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #020202;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .size-badge.available {
+    cursor: pointer;
+  }
+  
+  .size-badge.available:hover {
+    border-color: #f97316;
+    color: #f97316;
+    transform: translateY(-2px);
+  }
+  
+  .size-badge.out-of-stock {
+    background: #f0f0f0;
+    color: #999;
+    position: relative;
+  }
+  
+  .size-badge.out-of-stock::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 2px;
+    background-color: #999;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  
+  .size-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .size-label svg {
+    color: #f97316;
+  }
+  
+  /* Update product-info padding for the new content */
+  .product-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .size-badges {
+      gap: 0.35rem;
+    }
+  
+    .size-badge {
+      width: 30px;
+      height: 30px;
+      font-size: 0.7rem;
+    }
+  }

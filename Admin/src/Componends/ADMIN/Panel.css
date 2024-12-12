@@ -1,0 +1,10 @@
+.panel {
+    display: flex;
+  }
+  
+  .panel-content {
+    margin-left: 220px; /* Adjust margin to accommodate sidebar width */
+    padding: 20px;
+    width: calc(100% - 220px); /* Take up remaining width after sidebar */
+  }
+  

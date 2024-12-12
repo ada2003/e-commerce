@@ -1,0 +1,439 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    width: 100%;
+    background-color: #f4f4f4;
+}
+
+/* Top Notification Bar */
+.topnav {
+    background-color: rgb(238, 112, 39);
+    padding: 16px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    animation: slideDown 0.8s ease-in-out;
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Navbar Styling */
+.navbar {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background 0.5s ease-in-out;
+}
+
+.logo img {
+    width: 120px;
+}
+
+/* Center navigation */
+.nav-links {
+    display: flex;
+    list-style: none;
+
+    margin: 0 auto;
+    transition: transform 0.5s ease-in-out;
+}
+
+.nav-links li a {
+    color: rgb(49, 48, 48);
+    text-decoration: none;
+    font-weight: 300;
+    letter-spacing: 1px;
+    position: relative;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #f35912;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #f1540b;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: right;
+}
+
+.nav-links li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Hamburger menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger-icon {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger-icon span {
+    display: block;
+    height: 3px;
+    background-color: rgb(0, 0, 0);
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 100%; /* Change from 130px to 100% */
+        right: 0;
+        height: calc(100vh - 100%); /* Adjust height to exclude navbar height */
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links li a {
+        font-size: 22px;
+        padding: 10px 0;
+    }
+
+    .navbar {
+        padding: 15px;
+    }
+}
+/* Sign Up Button Styling */
+.sign-up-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ea580c; /* Orange */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: all 0.4s ease;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.sign-up-button i {
+    font-size: 18px;
+}
+
+.sign-up-button:hover {
+    background-color: white;
+    color: #ff8c00;
+    box-shadow: 0px 8px 20px rgba(255, 140, 0, 0.4);
+    transform: translateY(-3px); /* Slight lift on hover */
+    border: 2px solid #ff8c00;
+}
+
+.sign-up-button:active {
+    transform: translateY(1px); /* Button press effect */
+}
+
+/* Sign Up Button Icon Animation */
+.sign-up-button i {
+    transition: transform 0.3s ease;
+}
+
+.sign-up-button:hover i {
+    transform: translateX(4px); /* Slide the icon a bit on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+ 
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .sign-up-button {
+        display: none;
+    }
+}
+
+
+/* Login Form  css*/
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  .nav-links li a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .nav-links li a:hover {
+    color: orange;
+  }
+  
+  .sign-up-button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .sign-up-button:hover {
+    background-color: #e67e22;
+  }
+  
+  /* Modal Overlay and Login Form */
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  .nav-links li a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .nav-links li a:hover {
+    color: orange;
+  }
+  
+  .sign-up-button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .sign-up-button:hover {
+    background-color: #e67e22;
+  }
+  
+  /* Modal Overlay and Login Form */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+
+  }
+  
+  .login-form {
+    position: relative;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.5s ease;
+  }
+  
+  .close-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+  }
+  
+  .login-form h2 {
+    color: orange;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .login-form input::placeholder {
+    color: #aaa; /* Light gray color for better contrast */
+    opacity: 1; /* Ensures full opacity */
+    font-style: italic; /* Optional: Makes placeholders italic for differentiation */
+  }
+  /* Input Field Styling */
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px; /* Adjust font size if needed */
+    color: #333; /* Ensures input text color is visible */
+  }
+  .login-button,
+  .register-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button {
+    background-color: orange;
+    color: white;
+  }
+  
+  .login-button:hover {
+    background-color: #e67e22;
+  }
+  
+  .register-button {
+    background-color: #fff;
+    color: orange;
+    border: 1px solid orange;
+  }
+  
+  .register-button:hover {
+    background-color: orange;
+    color: white;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  

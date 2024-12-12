@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+.about-us-section {
+  position: relative;
+  background-color: #fff7ed;
+  padding: 6rem 0;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+.about-us-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ea580c;
+  text-align: center;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #ea580c;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.image-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-container:hover .about-image {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+  padding: 20px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-container:hover .image-overlay {
+  opacity: 1;
+}
+
+.text-content {
+  flex: 1;
+}
+
+.subsection-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #c2410c;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-left: 15px;
+}
+
+.subsection-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: #ea580c;
+}
+
+.description {
+  color: #44403c;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.list-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ea580c;
+  margin-bottom: 1.5rem;
+}
+
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease-in-out;
+}
+
+.feature-list li:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-text strong {
+  color: #c2410c;
+}
+
+.decorative-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 70%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ea580c' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .content-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .image-container, .text-content {
+    flex: 0 0 48%;
+  }
+
+  .section-title {
+    font-size: 4.5rem;
+  }
+
+  .subsection-title {
+    font-size: 2.5rem;
+  }
+
+  .description {
+    font-size: 1.2rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+
+.sadana-brothers-section {
+    margin-top: 6rem;
+  }
+  
+  .sadana-brothers-section .image-container,
+  .sadana-brothers-section .text-content {
+    flex: 0 0 48%;
+  }
+  
+  @media (max-width: 767px) {
+    .sadana-brothers-section {
+      flex-direction: column;
+    }
+  
+    .sadana-brothers-section .image-container,
+    .sadana-brothers-section .text-content {
+      width: 100%;
+    }
+  }
+  /* mission Vision */
+  /* ... (keep all existing styles) ... */
+
+.mission-vision-section {
+    margin-top: 6rem;
+    padding: 2rem;
+    background-color: rgba(255, 247, 237, 0.7);
+    
+  }
+  
+  .mission-vision-content {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .mission-box, .vision-box {
+    flex: 1;
+    padding: 2rem;
+    background-color: white;
+
+  
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .mission-box:hover, .vision-box:hover {
+    transform: translateY(-5px);
+  }
+  
+  .values-list {
+    background-color: white;
+    padding: 2rem;
+  
+  }
+  
+  .values-list .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .values-list .feature-list li {
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .mission-vision-content {
+      flex-direction: column;
+    }
+  
+    .mission-box, .vision-box {
+      width: 100%;
+    }
+  
+    .values-list .feature-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .section-title {
+      font-size: 2.5rem;
+    }
+  
+    .subsection-title {
+      font-size: 1.8rem;
+    }
+  
+    .description {
+      font-size: 1rem;
+    }
+  
+    .list-title {
+      font-size: 1.3rem;
+    }
+  
+    .feature-list li {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .about-us-section {
+      padding: 3rem 1rem;
+    }
+  
+    .mission-vision-section {
+      padding: 1rem;
+    }
+  
+    .section-title {
+      font-size: 2rem;
+    }
+  
+    .subsection-title {
+      font-size: 1.5rem;
+    }
+  }

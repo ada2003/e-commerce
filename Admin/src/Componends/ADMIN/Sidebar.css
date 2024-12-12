@@ -1,0 +1,55 @@
+/* Styling for sidebar */
+.sidebar {
+  width: 200px;
+  height: 100vh; /* Full height */
+  background-color: #1a3965;
+  padding: 20px;
+  color: white;
+  position: fixed; /* Stick to the left */
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* To push the logout button to the bottom */
+}
+
+.sidebar h2 {
+  color: white;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1; /* Allows the list to grow and fill the available space */
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Log Out button container */
+.logout-container {
+  margin-top: auto;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #d62828;
+}
