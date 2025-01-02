@@ -14,14 +14,13 @@ import CartPage from "./comp/header/mycart/CartPage";
 function App() {
   return (
     <>
-      <Navbar />  {/* Navbar will be shown on all pages */}
+      <Navbar />
       
       <main>
         <Routes>
-          {/* Route for the CartPage */}
+
           <Route path="/my-cart" element={<CartPage />} />
           
-          {/* Default route for the landing page */}
           <Route path="/" element={
             <>
               <section id="home">
@@ -49,7 +48,7 @@ function App() {
         </Routes>
       </main>
       
-      <Footer />  {/* Footer will be shown on all pages */}
+      <Footer />  
     </>
   );
 }

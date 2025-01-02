@@ -2,6 +2,7 @@ import cors from "cors";
 import bcrypt from "bcrypt";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import auth from './routes/auth.js';
 import customerRoutes from "./routes/customer-auth.js";
 import User from "./models/User.js";
 import projectRoutes from "./routes/product.js"; // Import your project routes
@@ -57,16 +58,16 @@ createDefaultAdmin();
 console.log('JWT_SECRET is:', process.env.JWT_SECRET ? process.env.JWT_SECRET : 'UNDEFINED');
 app.use("/api/authRoutes", authRoutes);
 app.use("/api/auth", customerRoutes);
-// Use the image upload routes
+app.use("/api/auth",auth );
+
 app.use("/api/images", imageRoutes);
 
-// Add the new route for handling blog uploads
 app.use("/api/blog", blogRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api", projectRoutes);
+app.use("/api/", projectRoutes);
 
 // Use your project routes
-app.use("/api/", addProductRoutes);
+app.use("/api/add", addProductRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

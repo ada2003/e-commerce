@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, ShoppingCart, Plus, Minus } from 'lucide-react';
-import './MyCart.css';
+import { Trash2, ShoppingCart,MessageCircle, Plus, Minus, ArrowRight } from "lucide-react";
+import "./MyCart.css";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handleWhatsAppClick = () => {
+    window.open("q1", "_blank");
+  };
+
+
+  // Fetch cart items when component mounts
   useEffect(() => {
     const fetchCartItems = async () => {
       const token = localStorage.getItem("token");
@@ -28,9 +34,9 @@ const CartPage = () => {
 
         const data = await response.json();
         setCartItems(data);
-        setLoading(false);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -38,110 +44,124 @@ const CartPage = () => {
     fetchCartItems();
   }, []);
 
+  // Calculate total price
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.productId.price * item.quantity), 0).toFixed(2);
+    return cartItems
+      .reduce((total, item) => total + item.productId.price * item.quantity, 0)
+      .toFixed(2);
   };
 
-  const handleQuantityChange = (itemId, newQuantity) => {
-    // Implement quantity update logic
-    // This is a placeholder and should be connected to your backend
-    console.log(`Update quantity for item ${itemId} to ${newQuantity}`);
+  // Update quantity
+  const handleQuantityChange = async (itemId, newQuantity) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await fetch(`http://localhost:5000/api/cart/update`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId, quantity: newQuantity }),
+      });
+
+      setCartItems((prev) =>
+        prev.map((item) =>
+          item._id === itemId ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } catch (error) {
+      alert("Failed to update quantity.");
+    }
   };
 
-  const handleRemoveItem = (itemId) => {
-    // Implement remove item logic
-    // This is a placeholder and should be connected to your backend
-    console.log(`Remove item with ID ${itemId}`);
+  // Remove item from cart
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await fetch(`http://localhost:5000/api/cart/remove/${itemId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setCartItems((prev) => prev.filter((item) => item._id !== itemId));
+    } catch (error) {
+      alert("Failed to remove item from cart.");
+    }
   };
 
-  if (loading) return (
-    <div className="loading-container">
-      <div className="spinner"></div>
-      <p>Loading your cart...</p>
-    </div>
-  );
-
-  if (error) return (
-    <div className="error-container">
-      <ShoppingCart size={64} color="#ff6b6b" />
-      <h2>Oops! Something went wrong</h2>
-      <p>{error}</p>
-    </div>
-  );
+  if (loading) return <div>Loading your cart...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="cart-page">
-      <div className="cart-container">
-        <h2 className="cart-title">
-          <ShoppingCart className="cart-icon" />
-          Your Cart
-        </h2>
-        
-        {cartItems.length === 0 ? (
-          <div className="empty-cart">
-            <ShoppingCart size={64} />
-            <p>Your cart is empty</p>
-            <button className="continue-shopping-btn">Continue Shopping</button>
-          </div>
-        ) : (
-          <>
-            <div className="cart-items-list">
-              {cartItems.map((item) => (
-                <div key={item.productId._id} className="cart-item">
-                  <div className="cart-item-image-container">
-                    <img
-                      src={`http://localhost:5000/${item.productId.image.replace(/\\/g, "/")}`}
-                      alt={item.productId.name}
-                      className="cart-item-image"
-                    />
-                  </div>
-                  <div className="cart-item-details">
-                    <div className="cart-item-header">
-                      <h3>{item.productId.name}</h3>
-                      <button 
-                        className="remove-item-btn" 
-                        onClick={() => handleRemoveItem(item.productId._id)}
-                      >
-                        <Trash2 size={20} />
-                      </button>
-                    </div>
-                    <p className="cart-item-description">{item.productId.description}</p>
-                    <div className="cart-item-footer">
-                      <div className="quantity-control">
-                        <button 
-                          className="quantity-btn" 
-                          onClick={() => handleQuantityChange(item.productId._id, item.quantity - 1)}
-                        >
-                          <Minus size={16} />
-                        </button>
-                        <span className="quantity">{item.quantity}</span>
-                        <button 
-                          className="quantity-btn" 
-                          onClick={() => handleQuantityChange(item.productId._id, item.quantity + 1)}
-                        >
-                          <Plus size={16} />
-                        </button>
-                      </div>
-                      <div className="cart-item-price">
-                        ₹{(item.productId.price * item.quantity).toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
+      <h2>Your Cart</h2>
+      {cartItems.length === 0 ? (
+        <div>Your cart is empty.</div>
+      ) : (
+        <div>
+          {cartItems.map((item) => (
+            <div key={item._id} className="cart-item">
+              <img
+                src={`http://localhost:5000/uploads/product/images/${item.productId.images[0]}`}
+                alt={item.productId.name}
+              />
+              <div>
+                <h3>{item.productId.name}</h3>
+                <p>{item.productId.description}</p>
+                <p>Price: ₹{item.productId.price.toFixed(2)}</p>
+                <div className="quantity-controls">
+                  <button
+                    onClick={() =>
+                      handleQuantityChange(item._id, item.quantity - 1)
+                    }
+                  >
+                    <Minus size={16} />
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    onClick={() =>
+                      handleQuantityChange(item._id, item.quantity + 1)
+                    }
+                  >
+                    <Plus size={16} />
+                  </button>
                 </div>
-              ))}
-            </div>
-            <div className="cart-summary">
-              <div className="cart-summary-details">
-                <span>Total</span>
-                <span className="cart-total-price">₹{calculateTotal()}</span>
+                <button
+                  className="remove-button"
+                  onClick={() => handleRemoveItem(item._id)}
+                >
+                  <Trash2 size={16} /> Remove
+                </button>
               </div>
-              <button className="checkout-btn">
-                Proceed to Checkout
-              </button>
             </div>
-          </>
-        )}
+          ))}
+          
+          <div className="cart-total">
+             
+          <div className="custom-order-card">
+        <div className="custom-order-content">
+          <h3 className="custom-order-title">Need a Custom Size Romala?</h3>
+          <p className="custom-order-description">Contact us on WhatsApp for personalized sizing options</p>
+          <button className="whatsapp-button" onClick={handleWhatsAppClick}>
+            <MessageCircle />
+            Chat on WhatsApp
+          </button>
+        </div>
       </div>
+    
+    
+
+
+
+            <h3>Total: ₹{calculateTotal()}</h3>
+            <button className="place-order-button">
+              Place Order <ArrowRight size={20} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

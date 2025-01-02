@@ -6,9 +6,17 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
+  images: {
+    type: [String], 
     required: true,
+    validate: [
+      {
+        validator: function(v) {
+          return v.length >= 1 && v.length <= 5;
+        },
+        message: props => `Images must be between 1 and 5, got ${props.value.length}`
+      }
+    ]
   },
   category: {
     type: String,

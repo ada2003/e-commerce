@@ -3,14 +3,14 @@ import './uploadproduct.css';
 
 const UploadProduct = () => {
   const [productName, setProductName] = useState('');
-  const [productImage, setProductImage] = useState(null);
+  const [productImages, setProductImages] = useState([]);
   const [productCategory, setProductCategory] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [categories, setCategories] = useState([]);
   const [sizeInput, setSizeInput] = useState('');
   const [sizes, setSizes] = useState([]);
-  const [imageError, setImageError] = useState('');
+  const [imageErrors, setImageErrors] = useState([]);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
   const [products, setProducts] = useState([]); // To store fetched products
 
@@ -42,20 +42,36 @@ const UploadProduct = () => {
   }, []);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files);
+    const errors = [];
+    const validImages = [];
 
-    if (file) {
+    files.forEach((file, index) => {
       if (file.size > 1 * 1024 * 1024) {
-        setImageError('Image size must be less than or equal to 1 MB.');
-        setProductImage(null);
+        errors.push(`Image ${index + 1}: Size must be less than or equal to 1 MB.`);
       } else {
-        setImageError('');
-        setProductImage(file);
+        validImages.push(file);
       }
+    });
+
+    // Ensure no more than 5 images are selected
+    if (validImages.length > 5) {
+      errors.push('Maximum of 5 images allowed.');
+      setProductImages(validImages.slice(0, 5));
     } else {
-      setImageError('');
-      setProductImage(null);
+      setProductImages(validImages);
     }
+
+    setImageErrors(errors);
+  };
+
+  const removeImage = (index) => {
+    const newImages = productImages.filter((_, i) => i !== index);
+    setProductImages(newImages);
+    
+    // Clear file input to allow re-selecting the same files
+    const fileInput = document.getElementById('productImages');
+    if (fileInput) fileInput.value = '';
   };
 
   const addSize = () => {
@@ -73,10 +89,21 @@ const UploadProduct = () => {
     event.preventDefault();
     setSubmitStatus({ type: '', message: '' });
 
+    // Validate image count
+    if (productImages.length === 0) {
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'At least one image is required.' 
+      });
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('name', productName);
-      formData.append('image', productImage);
+      productImages.forEach((image, index) => {
+        formData.append('images', image);
+      });
       formData.append('category', productCategory);
       formData.append('price', productPrice);
       formData.append('description', productDescription);
@@ -97,14 +124,14 @@ const UploadProduct = () => {
       
       // Reset form fields
       setProductName('');
-      setProductImage(null);
+      setProductImages([]);
       setProductCategory('');
       setProductPrice('');
       setProductDescription('');
       setSizes([]);
 
       // Reset file input
-      const fileInput = document.getElementById('productImage');
+      const fileInput = document.getElementById('productImages');
       if (fileInput) fileInput.value = '';
 
       // Fetch updated product list
@@ -136,18 +163,50 @@ const UploadProduct = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="productImage">Product Image:</label>
+          <label htmlFor="productImages">Product Images:</label>
           <input
             type="file"
-            id="productImage"
+            id="productImages"
             accept="image/*"
+            multiple
             onChange={handleImageChange}
             required
           />
-          <small className="text-muted">Note: Upload Image Size 1MB only</small>
-          {imageError && <div className="error-text">{imageError}</div>}
+          <small className="text-muted">Note: Upload 1-5 Images (1MB each)</small>
+          
+          {imageErrors.length > 0 && (
+            <div className="error-text">
+              {imageErrors.map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </div>
+          )}
+
+          {productImages.length > 0 && (
+            <div className="uploaded-images">
+              <h5>Uploaded Images:</h5>
+              <div className="image-preview-container">
+                {productImages.map((image, index) => (
+                  <div key={index} className="image-preview">
+                    <img 
+                      src={URL.createObjectURL(image)} 
+                      alt={`Product preview ${index + 1}`} 
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => removeImage(index)} 
+                      className="remove-image-btn"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
+        {/* Rest of the form remains the same as before */}
         <div className="form-group">
           <label htmlFor="productCategory">Product Category:</label>
           <select
@@ -217,8 +276,6 @@ const UploadProduct = () => {
 
         <button type="submit" className="submit-btn">Submit</button>
       </form>
-
-     
     </div>
   );
 };

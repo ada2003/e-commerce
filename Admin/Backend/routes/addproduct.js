@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 1 * 1024 * 1024 },
+  limits: { fileSize: 1 * 1024 * 1024 }, // 1MB limit per file
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
     if (ext === '.jpg' || ext === '.jpeg' || ext === '.png') {
@@ -35,13 +35,9 @@ const upload = multer({
   },
 });
 
-
-// Route to handle product creation
-router.post('/addproduct', upload.single('image'), async (req, res) => {
+// Route to handle product creation with multiple images
+router.post('/addproduct', upload.array('images', 5), async (req, res) => {
   try {
-    console.log('Request body:', req.body);
-    console.log('File:', req.file);
-
     const { name, category, price, description, sizes } = req.body;
 
     // Log received data
@@ -57,9 +53,14 @@ router.post('/addproduct', upload.single('image'), async (req, res) => {
       });
     }
 
-    // Check if an image was uploaded
-    if (!req.file) {
-      return res.status(400).json({ message: 'Product image is required.' });
+    // Check if images were uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: 'At least one product image is required.' });
+    }
+
+    // Validate number of images (1-5)
+    if (req.files.length > 5) {
+      return res.status(400).json({ message: 'Maximum of 5 images allowed.' });
     }
 
     let parsedSizes;
@@ -73,10 +74,13 @@ router.post('/addproduct', upload.single('image'), async (req, res) => {
       });
     }
 
+    // Extract image filenames
+    const imageFilenames = req.files.map(file => file.filename);
+
     // Create a new product instance
     const newProduct = new Product({
       name,
-      image: req.file.filename,
+      images: imageFilenames,
       category,
       price: Number(price),
       description,
@@ -90,7 +94,10 @@ router.post('/addproduct', upload.single('image'), async (req, res) => {
     const savedProduct = await newProduct.save();
     console.log('Product saved successfully:', savedProduct);
 
-    res.status(201).json({ message: 'Product added successfully!' });
+    res.status(201).json({ 
+      message: 'Product added successfully!',
+      product: savedProduct 
+    });
   } catch (error) {
     console.error('Detailed error:', error);
     res.status(500).json({
@@ -115,6 +122,5 @@ router.get('/products', async (req, res) => {
     res.status(500).json({ message: 'Error fetching products', error: error.message });
   }
 });
-
 
 export default router;
