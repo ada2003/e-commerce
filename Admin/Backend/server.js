@@ -10,9 +10,11 @@ import addProductRoutes from "./routes/addproduct.js";
 import blogRoutes from "./routes/blog.js";
 import imageRoutes from "./routes/imageRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import orderroutes from "./routes/orderroutes.js";
 import dotenv from 'dotenv';
 import fs from "fs";
 import express from "express";
+import { verifyConnection } from './utils/emailConfig.js';
 const app = express();
 dotenv.config();
 // Connect to DB
@@ -50,12 +52,19 @@ const createDefaultAdmin = async () => {
     console.log("Admin user already exists.");
   }
 };
+// After your app is initialized
+try {
+  await verifyConnection();
+  console.log('Email service is ready');
+} catch (error) {
+  console.error('Email service failed to initialize:', error);
+}
 
 // Call the function to create the admin user
 createDefaultAdmin();
 
 // Routes
-console.log('JWT_SECRET is:', process.env.JWT_SECRET ? process.env.JWT_SECRET : 'UNDEFINED');
+//console.log('JWT_SECRET is:', process.env.JWT_SECRET ? process.env.JWT_SECRET : 'UNDEFINED');
 app.use("/api/authRoutes", authRoutes);
 app.use("/api/auth", customerRoutes);
 app.use("/api/auth",auth );
@@ -65,8 +74,8 @@ app.use("/api/images", imageRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/", projectRoutes);
+app.use("/api/orders", orderroutes);
 
-// Use your project routes
 app.use("/api/add", addProductRoutes);
 
 const PORT = process.env.PORT || 5000;
